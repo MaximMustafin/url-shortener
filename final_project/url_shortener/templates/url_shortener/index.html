@@ -1,0 +1,25 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'url_shortener/bootstrap.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'url_shortener/style.css' %}">
+
+<div name="index-center">
+    <h1><strong>URL Shortener</strong></h1>
+
+    <a href="#" class="badge badge-primary" name="all_links">All Links</a>
+
+    <div class="input-group mb-3">
+        <input name="input-url" type="text" class="form-control" placeholder="Enter a long URL to make a ShortURL" 
+            aria-label="Enter a long URL to make a ShortURL" aria-describedby="basic-addon2">
+
+        <div class="input-group-append">
+            <input name="submit-url" class="btn btn-primary" type="submit" value="Make ShortURL!">
+        </div>
+    </div>
+
+    {% if short_url %} 
+        <div class="alert alert-success" role="alert">
+            {{ short_url }}
+        </div>
+    {% endif %}
+<div>

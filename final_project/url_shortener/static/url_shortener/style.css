@@ -1,0 +1,27 @@
+body{
+    background-color: #e8e8e8;
+}
+
+div[name="index-center"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 18%;
+    width: 60%;
+  }
+
+input[name="input-url"] {
+    height: 75px;
+    font-size: x-large;
+}
+
+input[name="submit-url"] {
+    font-size: x-large;
+}
+
+a[name="all_links"] {
+    font-size: x-large;
+    margin-bottom: 25px;
+}
