@@ -6,11 +6,11 @@
 <div name="index-center">
     <h1><strong>URL Shortener</strong></h1>
 
-    <a href="#" class="badge badge-primary" name="all_links">All Links</a>
+    <a href="{% url 'url_shortener:all_links' %}" class="badge badge-primary" name="all_links">All Links</a>
 
     <div class="input-group mb-3">
-        <input name="input-url" type="text" class="form-control" placeholder="Enter a long URL to make a ShortURL" 
-            aria-label="Enter a long URL to make a ShortURL" aria-describedby="basic-addon2">
+        <input name="input-url" type="url" class="form-control" placeholder="Enter a long URL to make a ShortURL" 
+            aria-label="Enter a long URL to make a ShortURL" aria-describedby="basic-addon2" required>
 
         <div class="input-group-append">
             <input name="submit-url" class="btn btn-primary" type="submit" value="Make ShortURL!">
@@ -20,6 +20,12 @@
     {% if short_url %} 
         <div class="alert alert-success" role="alert">
             {{ short_url }}
+        </div>
+    {% endif %}
+
+    {% if error_message %} 
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
         </div>
     {% endif %}
 <div>
