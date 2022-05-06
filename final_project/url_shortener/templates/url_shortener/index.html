@@ -3,29 +3,45 @@
 <link rel="stylesheet" type="text/css" href="{% static 'url_shortener/bootstrap.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'url_shortener/style.css' %}">
 
-<div name="index-center">
-    <h1><strong>URL Shortener</strong></h1>
+<form action="{% url 'url_shortener:create_short_url' %}" method="post">
+    {% csrf_token %}
+    <div name="index-center">
+        <h1><strong>URL Shortener</strong></h1>
 
-    <a href="{% url 'url_shortener:all_links' %}" class="badge badge-primary" name="all_links">All Links</a>
+        <a href="{% url 'url_shortener:all_links' %}" class="badge badge-primary" name="all_links">All Links</a>
 
-    <div class="input-group mb-3">
-        <input name="input-url" type="url" class="form-control" placeholder="Enter a long URL to make a ShortURL" 
-            aria-label="Enter a long URL to make a ShortURL" aria-describedby="basic-addon2" required>
+        <div class="input-group mb-3">
 
-        <div class="input-group-append">
-            <input name="submit-url" class="btn btn-primary" type="submit" value="Make ShortURL!">
+            <input name="input-url" type="url" class="form-control" placeholder="Enter a long URL to make a ShortURL" 
+                aria-label="Enter a long URL to make a ShortURL" aria-describedby="basic-addon2" required>
+
+            <div class="input-group-append">
+                {% if not short_url %} 
+                        <input name="submit-url" class="btn btn-primary" type="submit" value="Make ShortURL!">
+                {% endif %}
+
+                {% if short_url %} 
+                        <a href="{% url 'url_shortener:index' %}"
+                           name="submit-url" class="btn btn-primary">
+                           Shorten another
+                        </a>
+                {% endif %}
+            </div>
         </div>
-    </div>
 
-    {% if short_url %} 
-        <div class="alert alert-success" role="alert">
-            {{ short_url }}
-        </div>
-    {% endif %}
+        {% if short_url %} 
+            <div class="alert alert-success" role="alert">
+                <a href="{{ short_url }}"
+                    name="submit-url">
+                    {{ short_url }}
+                </a>
+            </div>
+        {% endif %}
 
-    {% if error_message %} 
-        <div class="alert alert-danger" role="alert">
-            {{ error_message }}
-        </div>
-    {% endif %}
-<div>
+        {% if error_message %} 
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+    <div>
+</form>
