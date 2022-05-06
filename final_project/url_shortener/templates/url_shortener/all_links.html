@@ -1,0 +1,48 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'url_shortener/bootstrap.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'url_shortener/style.css' %}">
+
+<div name="all_links-center" >
+    <h1><strong>All Links</strong></h1>
+
+    <a href="{% url 'url_shortener:index' %}" class="badge badge-primary" name="all_links">Home</a>
+
+    <table class="table table-striped table-responsive-md btn-table">
+
+        <thead>
+            <tr>
+                <th>Number of uses</th>
+                <th>Short URL</th>
+                <th>Full URL</th>
+            </tr>
+            
+        </thead>
+        
+        <tbody>
+
+            <tr>
+                <th class="center" scope="row">N</th>
+
+                <td name="short_url_row">
+                    <a href="127.0.0.1:8000/app/AllLinks">127.0.0.1:8000/app/12345678</a>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <input name="delete-shorturl" type="submit" class="btn btn-danger" value="Delete">
+                </td>
+
+                <td>
+                    <a href="https://docs.google.com/presentation/d/1Tlv2qfcXQba6IHakaD43qiDWFXaMRlAgmF95XYsZiGE/edit#slide=id.g1216e9d6e61_0_0dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" name="all_links">
+                        docs.google.com/presentation/d/1Tlv2qfcXQba6IHakaD43qiDWFXaMRlAgmF95XYsZiGE/edit#slide=id.g1216e9d6e61_0_0dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

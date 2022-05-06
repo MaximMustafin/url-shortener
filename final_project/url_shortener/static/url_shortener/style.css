@@ -23,5 +23,33 @@ input[name="submit-url"] {
 
 a[name="all_links"] {
     font-size: x-large;
+    display: table-cell;
+    vertical-align: middle;
+    height: 50px;
+    width: 120px;
     margin-bottom: 25px;
+}
+
+div[name="all_links-center"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; 
+    margin: auto;
+    margin-top: 50px;
+}
+
+th, td, thead {
+    border: 4px solid #007bff;
+    overflow-x: auto;
+    font-size: x-large;
+    text-align: center;
+}
+
+table {
+    table-layout: fixed;
+}
+
+input[name="delete-shorturl"]{
+    font-size: x-large;
 }
