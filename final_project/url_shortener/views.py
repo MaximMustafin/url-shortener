@@ -14,16 +14,12 @@ def index(request):
     return render(request=request, template_name='url_shortener/index.html')
 
 
-# view for rendering all links page
-# def all_links(request):
-#     return render(request=request, template_name='url_shortener/all_links.html')
-
-
 class AllLinksView(generic.ListView):
     model = ShortURL
     template_name = 'url_shortener/all_links.html'
     context_object_name = 'short_urls'
 
+    # return short url objects ordering them by number_of_uses
     def get_queryset(self):
         return ShortURL.objects.order_by('-number_of_uses')
 
@@ -97,8 +93,11 @@ def handle_short_url(request, short_url):
 # view for deleting short urls
 def delete_short_url(request, short_url_id):
 
-    # delete record from db by pk (id)
-    ShortURL.objects.filter(id=short_url_id).delete()
+    # find short url model in db by pk
+    short_url_model = get_object_or_404(klass=ShortURL, pk=short_url_id)
+
+    # delete record from db
+    short_url_model.delete()
 
     # return redirect to all links page without deleted record
     return redirect('url_shortener:all_links')
