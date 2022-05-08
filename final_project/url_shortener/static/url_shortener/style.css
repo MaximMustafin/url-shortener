@@ -65,3 +65,7 @@ table {
 input[name="delete-shorturl"]{
     font-size: x-large;
 }
+
+h3 {
+    color: red;
+}
