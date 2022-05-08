@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'url_shortener/bootstrap.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'url_shortener/style.css' %}">
 
-<form action="{% url 'url_shortener:create_short_url' %}" method="post">
+<form action="{% url 'url_shortener:create' %}" method="post">
     {% csrf_token %}
     <div name="index-center">
         <h1><strong>URL Shortener</strong></h1>
