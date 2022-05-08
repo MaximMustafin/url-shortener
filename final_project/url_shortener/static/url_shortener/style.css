@@ -25,6 +25,14 @@ a[name="submit-url"] {
     font-size: x-large;
 }
 
+a[name="short-url"] {
+    font-size: x-large;
+}
+
+a[name="shorten-another-url"] {
+    font-size: x-large;
+}
+
 a[name="all_links"] {
     font-size: x-large;
     display: table-cell;
