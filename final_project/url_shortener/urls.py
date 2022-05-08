@@ -8,5 +8,5 @@ urlpatterns = [
     path('u/<str:short_url>', views.handle_short_url, name='handle'),
     path('allLinks', views.AllLinksView.as_view(), name='all_links'),
     path('myurl', views.create_short_url, name='create'),
-    path('<int:short_url_id>/delete/', views.delete_short_url, name='delete'),
+    path('delete/<int:short_url_id>', views.delete_short_url, name='delete'),
 ]
