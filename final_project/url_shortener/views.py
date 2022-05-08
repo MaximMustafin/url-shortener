@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views import generic
+from django.urls import reverse
 from . import utils
 from .models import ShortURL
 from django.db.models import F
@@ -25,8 +26,6 @@ class AllLinksView(generic.ListView):
 
     def get_queryset(self):
         return ShortURL.objects.order_by('-number_of_uses')
-
-    
 
 
 # view for creating new short urls
@@ -93,3 +92,13 @@ def handle_short_url(request, short_url):
 
     # return redirect of user to full source url
     return redirect(full_url)
+
+
+# view for deleting short urls
+def delete_short_url(request, short_url_id):
+
+    # delete record from db by pk (id)
+    ShortURL.objects.filter(id=short_url_id).delete()
+
+    # return redirect to all links page without deleted record
+    return redirect('url_shortener:all_links')

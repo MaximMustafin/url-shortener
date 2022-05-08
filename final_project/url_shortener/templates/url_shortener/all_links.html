@@ -23,25 +23,27 @@
             
             <tbody>
                 {% for short_url in short_urls %}
-                <tr>
-                    <th class="center" scope="row">{{ short_url.number_of_uses }}</th>
+                <form action="{% url 'url_shortener:delete' short_url.id %}" method="delete">
+                    <tr>
+                        <th class="center" scope="row">{{ short_url.number_of_uses }}</th>
 
-                    <td name="short_url_row">
-                        <a href="u/{{ short_url.hashed_url }}">{{ short_url.hashed_url }}</a>
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        <input name="delete-shorturl" type="submit" class="btn btn-danger" value="Delete">
-                    </td>
+                        <td name="short_url_row">
+                            <a href="u/{{ short_url.hashed_url }}">{{ short_url.hashed_url }}</a>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            <input name="delete-shorturl" type="submit" class="btn btn-danger" value="Delete">
+                        </td>
 
-                    <td>
-                        <a href="{{ short_url.full_url }}" name="all_links">
-                            {{ short_url.full_url }}
-                        </a>
+                        <td>
+                            <a href="{{ short_url.full_url }}" name="all_links">
+                                {{ short_url.full_url }}
+                            </a>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
+                </form>
 
                 {% endfor %}
 
