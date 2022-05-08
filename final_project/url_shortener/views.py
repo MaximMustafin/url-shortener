@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.views import generic
 from . import utils
@@ -14,8 +14,19 @@ def index(request):
 
 
 # view for rendering all links page
-def all_links(request):
-    return render(request=request, template_name='url_shortener/all_links.html')
+# def all_links(request):
+#     return render(request=request, template_name='url_shortener/all_links.html')
+
+
+class AllLinksView(generic.ListView):
+    model = ShortURL
+    template_name = 'url_shortener/all_links.html'
+    context_object_name = 'short_urls'
+
+    def get_queryset(self):
+        return ShortURL.objects.order_by('-number_of_uses')
+
+    
 
 
 # view for creating new short urls

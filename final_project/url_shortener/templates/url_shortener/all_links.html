@@ -8,41 +8,51 @@
 
     <a href="{% url 'url_shortener:index' %}" class="badge badge-primary" name="all_links">Home</a>
 
-    <table class="table table-striped table-responsive-md btn-table">
 
-        <thead>
-            <tr>
-                <th>Number of uses</th>
-                <th>Short URL</th>
-                <th>Full URL</th>
-            </tr>
+    {% if short_urls %}
+        <table class="table table-striped table-responsive-md btn-table">
+
+            <thead>
+                <tr>
+                    <th>Number of uses</th>
+                    <th>Short URL</th>
+                    <th>Full URL</th>
+                </tr>
+                
+            </thead>
             
-        </thead>
-        
-        <tbody>
+            <tbody>
+                {% for short_url in short_urls %}
+                <tr>
+                    <th class="center" scope="row">{{ short_url.number_of_uses }}</th>
 
-            <tr>
-                <th class="center" scope="row">N</th>
+                    <td name="short_url_row">
+                        <a href="u/{{ short_url.hashed_url }}">{{ short_url.hashed_url }}</a>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <input name="delete-shorturl" type="submit" class="btn btn-danger" value="Delete">
+                    </td>
 
-                <td name="short_url_row">
-                    <a href="127.0.0.1:8000/app/AllLinks">127.0.0.1:8000/app/12345678</a>
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <input name="delete-shorturl" type="submit" class="btn btn-danger" value="Delete">
-                </td>
+                    <td>
+                        <a href="{{ short_url.full_url }}" name="all_links">
+                            {{ short_url.full_url }}
+                        </a>
 
-                <td>
-                    <a href="https://docs.google.com/presentation/d/1Tlv2qfcXQba6IHakaD43qiDWFXaMRlAgmF95XYsZiGE/edit#slide=id.g1216e9d6e61_0_0dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" name="all_links">
-                        docs.google.com/presentation/d/1Tlv2qfcXQba6IHakaD43qiDWFXaMRlAgmF95XYsZiGE/edit#slide=id.g1216e9d6e61_0_0dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                    </a>
+                    </td>
 
-                </td>
+                </tr>
 
-            </tr>
+                {% endfor %}
 
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
+
+        {% else %}
+
+            <h2><strong>No short urls available</strong></h2>
+
+        {% endif %}
 
 </div>

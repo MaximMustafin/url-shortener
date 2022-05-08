@@ -73,5 +73,5 @@ def form_short_url(request, hash_url: str):
                     short url 
     '''
 
-    return HttpRequest.get_host(request) + "/u/" + hash_url[0:8]
+    return request.META['HTTP_HOST'] + "/u/" + hash_url[0:8]
 

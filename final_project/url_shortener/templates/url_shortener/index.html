@@ -18,9 +18,8 @@
             <div class="input-group-append">
                 {% if not short_url %} 
                         <input name="submit-url" class="btn btn-primary" type="submit" value="Make ShortURL!">
-                {% endif %}
 
-                {% if short_url %} 
+                {% else %} 
                         <a href="{% url 'url_shortener:index' %}"
                            name="shorten-another-url" class="btn btn-primary">
                            Shorten another
