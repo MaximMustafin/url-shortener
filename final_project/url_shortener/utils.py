@@ -2,8 +2,13 @@
 
 
 import re
+import os
+import hashlib
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+
 
 def is_valid_url(url: str) -> bool:
+
     '''
     A function to validate input full url
 
@@ -28,3 +33,45 @@ def is_valid_url(url: str) -> bool:
 
     else: 
         return False
+
+
+def hash_url(url: str):
+
+    '''
+    A function to compute SHA256 hash of url with pbkdf2 algorithm with salt.
+
+            Parameters:
+                    url (str): Input full url
+
+            Returns:
+                    hex_hash  
+    '''
+
+    if isinstance(url, str):
+        salt = os.urandom(32)
+        plain_text = url.encode('utf-8')
+
+        digest = hashlib.pbkdf2_hmac('md5', plain_text, salt, 10000)
+
+        hex_hash = digest.hex()
+
+        return hex_hash
+
+    return None
+
+
+def form_short_url(request, hash_url: str):
+
+    '''
+    A function to create short url for user on template
+
+            Parameters:
+                    request: 
+                    hash_url: str
+
+            Returns:
+                    short url 
+    '''
+
+    return HttpRequest.get_host(request) + "/" + hash_url[0:8]
+
