@@ -38,7 +38,7 @@ def create_short_url(request):
             # trying to get model of short_url from db with input full_url
             short_url_model = ShortURL.objects.get(full_url=full_url)
 
-            # form short url for user
+            # form short url for user on template
             short_url = utils.form_short_url(request, short_url_model.hashed_url)
 
             # return render of index page with short url that already exists
@@ -54,7 +54,7 @@ def create_short_url(request):
             # add new record to database
             ShortURL.objects.create(hashed_url=hash_url[0:8], full_url=full_url, number_of_uses=0)
 
-            # form short url for user
+            # form short url for user on template
             short_url = utils.form_short_url(request, hash_url)
 
             # return render of index page with short url
