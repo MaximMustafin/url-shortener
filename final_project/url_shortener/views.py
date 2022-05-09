@@ -52,7 +52,7 @@ def create_short_url(request):
             hash_url = utils.hash_url(full_url)
 
             # add new record to database
-            ShortURL.objects.create(hashed_url=hash_url[0:8], full_url=full_url, number_of_uses=0)
+            ShortURL.objects.create(hashed_url=hash_url, full_url=full_url, number_of_uses=0)
 
             # form short url for user on template
             short_url = utils.form_short_url(request, hash_url)

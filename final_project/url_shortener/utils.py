@@ -63,7 +63,7 @@ def hash_url(url: str):
         digest = hashlib.pbkdf2_hmac('md5', plain_text, salt, 10000)
         hex_hash = digest.hex()
 
-        return hex_hash
+        return hex_hash[0:8]
 
     return None
 
@@ -81,5 +81,5 @@ def form_short_url(request, hash_url: str):
                     short url 
     '''
 
-    return request.META['HTTP_HOST'] + "/u/" + hash_url[0:8]
+    return request.META['HTTP_HOST'] + "/u/" + hash_url
 
