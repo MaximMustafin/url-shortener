@@ -33,10 +33,13 @@ def is_valid_url(url: str) -> bool:
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
         # validating 
-        return regex.search(url)
+        if regex.search(url):
+                return True
+        else:
+                return False
 
     else: 
-        return None
+        return False
 
 
 def hash_url(url: str):
@@ -81,5 +84,5 @@ def form_short_url(request, hash_url: str):
                     short url 
     '''
 
-    return request.META['HTTP_HOST'] + "/u/" + hash_url
+    return HttpRequest.get_host(request) + "/u/" + hash_url
 
