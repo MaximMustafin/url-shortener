@@ -17,7 +17,7 @@ class ShortURL(models.Model):
         number of uses of the short link by the user
 
     """
-    hashed_url = models.CharField(max_length=8)
-    full_url = models.URLField()
+    hashed_url = models.CharField(max_length=8, unique=True)
+    full_url = models.URLField(unique=True)
     number_of_uses = models.PositiveIntegerField()
 
