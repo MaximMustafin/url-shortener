@@ -4,6 +4,7 @@ from django.urls import reverse
 from . import utils
 from django.db import IntegrityError
 from django.http import HttpRequest
+from http import HTTPStatus
 
 # Create your tests here.
 
@@ -81,8 +82,8 @@ class IndexViewTests(TestCase):
         # get response by url to index view
         response = self.client.get(reverse('url_shortener:index'))
 
-        # assert that status code of response is equal 200(OK)
-        self.assertEqual(response.status_code, 200)
+        # assert that status code of response is equal HTTPStatus.OK(OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # assert that response contains link to All Links page
         self.assertContains(response, 'All Links')
@@ -103,8 +104,8 @@ class IndexViewTests(TestCase):
         # get response by url to create_short_url view
         response = self.client.post('/myurl', data={"input-url": full_url})
 
-        # assert that status code of response is equal 200(OK)
-        self.assertEqual(response.status_code, 200)
+        # assert that status code of response is equal HTTPStatus.OK(OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # get object from db after view work
         short_url_object = ShortURL.objects.get(full_url=full_url)
@@ -127,8 +128,8 @@ class AllLinksViewTests(TestCase):
         # get response by url to all_links view
         response = self.client.get(reverse('url_shortener:all_links'))
 
-        # assert that status code of response is equal 200(OK)
-        self.assertEqual(response.status_code, 200)
+        # assert that status code of response is equal HTTPStatus.OK(OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # assert that response does not contain short urls, cause we haven't created ones
         self.assertContains(response, 'No short urls available')
@@ -163,8 +164,8 @@ class AllLinksViewTests(TestCase):
         # get response by url to all_links view
         response = self.client.get(reverse('url_shortener:all_links'))
 
-        # assert that status code of response is equal 200(OK)
-        self.assertEqual(response.status_code, 200)
+        # assert that status code of response is equal HTTPStatus.OK(OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # assert that response contains some short urls, cause we have created ones
         self.assertNotContains(response, 'No short urls available')
@@ -183,8 +184,8 @@ class AllLinksViewTests(TestCase):
         # get response by url to all_links view
         response = self.client.get(reverse('url_shortener:all_links'))
 
-        # assert that status code of response is equal 200(OK)
-        self.assertEqual(response.status_code, 200)
+        # assert that status code of response is equal HTTPStatus.OK(OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # assert that response contains some short urls, cause we have created one
         self.assertNotContains(response, 'No short urls available')
@@ -198,14 +199,31 @@ class AllLinksViewTests(TestCase):
         # get response by url to all_links view
         response_2 = self.client.get(reverse('url_shortener:all_links'))
 
-        # assert that status code of response is equal 200(OK)
-        self.assertEqual(response.status_code, 200)
+        # assert that status code of response is equal HTTPStatus.OK(OK)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
         # assert that response does not contain some short url, because we have deleted one
         self.assertContains(response_2, 'No short urls available')
 
         # assert that response does not contain list with short_url_1
         self.assertQuerysetEqual(response_2.context['short_urls'], [])
+
+
+    def test_delete_non_existent_short_url(self):
+
+        # create instance of ShortURL model
+        short_url_1 = create_short_url(
+            full_url="https://www.example.com/", 
+            number_of_uses=5)
+
+        # make request by url to delete_short_url view to delete short_url from db
+        response_1 = self.client.delete(reverse('url_shortener:delete', args=(short_url_1.id, )))
+
+        # make request by url to delete_short_url view to delete non-existent short_url
+        response_2 = self.client.delete(reverse('url_shortener:delete', args=(short_url_1.id, )))
+
+        # assert that status code of response is equal to 404 (Not found)
+        self.assertEqual(response_2.status_code, HTTPStatus.NOT_FOUND)
 
 
 # class for testing handle_short_url view
